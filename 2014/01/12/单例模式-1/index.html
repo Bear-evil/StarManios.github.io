@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="美丽总是那么短暂" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>单例模式 | 风士魁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="单例模式的意思就是只有一个实例。单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例。这个类称为单例类。
+1.单例模式的要点：
+　　显然单例模式的要点有三个；一是某个类只能有一个实例；二是它必须自行创建这个实例；三是它必须自行向整个系统提供这个实例。
+2.单例模式的优点：
+　　1.实例控制：Singleton 会阻止其他对象实例化其自己的 Singleton 对象的副本，从而确">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式">
+<meta property="og:url" content="http://yoursite.com/2014/01/12/单例模式-1/index.html">
+<meta property="og:site_name" content="风士魁">
+<meta property="og:description" content="单例模式的意思就是只有一个实例。单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例。这个类称为单例类。
+1.单例模式的要点：
+　　显然单例模式的要点有三个；一是某个类只能有一个实例；二是它必须自行创建这个实例；三是它必须自行向整个系统提供这个实例。
+2.单例模式的优点：
+　　1.实例控制：Singleton 会阻止其他对象实例化其自己的 Singleton 对象的副本，从而确">
+<meta property="og:updated_time" content="2016-06-12T06:46:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单例模式">
+<meta name="twitter:description" content="单例模式的意思就是只有一个实例。单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例。这个类称为单例类。
+1.单例模式的要点：
+　　显然单例模式的要点有三个；一是某个类只能有一个实例；二是它必须自行创建这个实例；三是它必须自行向整个系统提供这个实例。
+2.单例模式的优点：
+　　1.实例控制：Singleton 会阻止其他对象实例化其自己的 Singleton 对象的副本，从而确">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="风士魁" rel="home">风士魁</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">走的太快容易孤独，快跟上我的步伐！！！</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-单例模式-1" class="post-单例模式-1 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      单例模式
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/12/单例模式-1/" data-id="cipc8aj1b0004h1s63va5pfny" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><span><br>单例模式的意思就是只有一个实例。单例模式确保某一个类只有一个实例，而且自行实例化并向整个系统提供这个实例。这个类称为单例类。</span></p>
+<p>1.单例模式的要点：</p>
+<p>　　显然单例模式的要点有三个；一是某个类只能有一个实例；二是它必须自行创建这个实例；三是它必须自行向整个系统提供这个实例。</p>
+<p>2.单例模式的优点：</p>
+<p>　　1.实例控制：Singleton 会阻止其他对象实例化其自己的 Singleton 对象的副本，从而确保所有对象都访问唯一实例。<br>　　2.灵活性：因为类控制了实例化过程，所以类可以更加灵活修改实例化过程</p>
+<p>IOS中的单例模式<br>　　在objective-c中要实现一个单例类，至少需要做以下四个步骤：<br>　　1、为单例对象实现一个静态实例，并初始化，然后设置成nil，<br>　　2、实现一个实例构造方法检查上面声明的静态实例是否为nil，如果是则新建并返回一个本类的实例，<br>　　3、重写allocWithZone方法，用来保证其他人直接使用alloc和init试图获得一个新实力的时候不产生一个新实例，<br>　　4、适当实现allocWitheZone，copyWithZone，release和autorelease。<br>下面以SurveyRunTimeData为例子：</p>
+<p>static SurveyRunTimeData *sharedObj = nil; //第一步：静态实例，并初始化。<br>@implementation SurveyRunTimeData</p>
+<ul>
+<li><p>(SurveyRunTimeData*) sharedInstance  //第二步：实例构造检查静态实例是否为nil<br>{<br>@synchronized (self)<br>{<br>if (sharedObj == nil)<br>{<br>[[self alloc] init];<br>}<br>}<br>return sharedObj;<br>}</p>
+</li>
+<li><p>(id) allocWithZone:(NSZone *)zone //第三步：重写allocWithZone方法<br>{<br>@synchronized (self) {<br>if (sharedObj == nil) {<br>sharedObj = [super allocWithZone:zone];<br>return sharedObj;<br>}<br>}<br>return nil;<br>}</p>
+</li>
+</ul>
+<ul>
+<li><p>(id) copyWithZone:(NSZone *)zone //第四步<br>{<br>return self;<br>}</p>
+</li>
+<li><p>(id) retain<br>{<br>return self;<br>}</p>
+</li>
+<li><p>(unsigned) retainCount<br>{<br>return UINT_MAX;<br>}</p>
+</li>
+<li><p>(oneway void) release<br>{</p>
+</li>
+</ul>
+<p>}</p>
+<ul>
+<li><p>(id) autorelease<br>{<br>return self;<br>}</p>
+</li>
+<li><p>(id)init<br>{<br>@synchronized(self) {<br>[super init];//往往放一些要初始化的变量.<br>return self;<br>}<br>}</p>
+</li>
+</ul>
+<p>@end</p>
+<p><span></span></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/01/12/单例模式-1/">
+    <time datetime="2014-01-11T20:20:20.000Z" class="entry-date">
+        2014-01-12
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2014/03/12/页面传值的方式/" rel="prev"><span class="meta-nav">←</span> 页面传值的方式</a></span>
+    
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/12/ios视频直播开发/">ios视频直播开发</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/25/ios毛玻璃的实现/">ios毛玻璃的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/25/音频直播的难点总结/">音频直播的难点总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/12/iosd多线程－－死锁/">iosd多线程－－死锁</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/12/单例模式解读/">单例模式解读</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2016 风
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
