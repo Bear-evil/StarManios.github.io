@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="美丽总是那么短暂" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>单例模式解读 | 风士魁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IOS 中单例设计模式的解读与用法一、单例的作用二、单例的写法方式1、不考虑线程方式2、考虑线程安全三、代码的优化IOS 中单例设计模式的解读与用法
+一、单例的作用
+顾名思义，单例，即是在整个项目中，这个类的对象只能被初始化一次。它的这种特性，可以广泛应用于某些需要全局共享的资源中，比如管理类，引擎类，也可以通过单例来实现传值。UIApplication、NSUserDefaults等都是IOS中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单例模式解读">
+<meta property="og:url" content="http://yoursite.com/2015/10/12/单例模式解读/index.html">
+<meta property="og:site_name" content="风士魁">
+<meta property="og:description" content="IOS 中单例设计模式的解读与用法一、单例的作用二、单例的写法方式1、不考虑线程方式2、考虑线程安全三、代码的优化IOS 中单例设计模式的解读与用法
+一、单例的作用
+顾名思义，单例，即是在整个项目中，这个类的对象只能被初始化一次。它的这种特性，可以广泛应用于某些需要全局共享的资源中，比如管理类，引擎类，也可以通过单例来实现传值。UIApplication、NSUserDefaults等都是IOS中">
+<meta property="og:updated_time" content="2016-06-12T06:24:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单例模式解读">
+<meta name="twitter:description" content="IOS 中单例设计模式的解读与用法一、单例的作用二、单例的写法方式1、不考虑线程方式2、考虑线程安全三、代码的优化IOS 中单例设计模式的解读与用法
+一、单例的作用
+顾名思义，单例，即是在整个项目中，这个类的对象只能被初始化一次。它的这种特性，可以广泛应用于某些需要全局共享的资源中，比如管理类，引擎类，也可以通过单例来实现传值。UIApplication、NSUserDefaults等都是IOS中">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="风士魁" rel="home">风士魁</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">风雨泽－万物苏</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-单例模式解读" class="post-单例模式解读 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      单例模式解读
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/10/12/单例模式解读/" data-id="cipc7h8cj00088ws62sylgya3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><span><br>IOS 中单例设计模式的解读与用法<br>一、单例的作用<br>二、单例的写法<br>方式1、不考虑线程<br>方式2、考虑线程安全<br>三、代码的优化<br>IOS 中单例设计模式的解读与用法</span></p>
+<p>一、单例的作用</p>
+<p>顾名思义，单例，即是在整个项目中，这个类的对象只能被初始化一次。它的这种特性，可以广泛应用于某些需要全局共享的资源中，比如管理类，引擎类，也可以通过单例来实现传值。UIApplication、NSUserDefaults等都是IOS中的系统单例。</p>
+<p>二、单例的写法</p>
+<p>单例的写法常用的有两种方式：</p>
+<p>方式1、不考虑线程</p>
+<p>static SingleCase *manager = nil;  </p>
+<ul>
+<li><p>(SingleCase *)defaultManager {<br>if (!manager){<br>SingleCase = [[self alloc] init];<br>return manager;<br>}<br>}<br>方式2、考虑线程安全</p>
+</li>
+<li><p>(SingleCase <em>)sharedManager<br>{<br>static SingleCase </em>ManagerInstance = nil;<br>static dispatch_once_t predicate;<br>dispatch_once(&amp;predicate, ^{<br>ManagerInstance = [[self alloc] init];<br>});<br>return ManagerInstance;<br>}<br>三、代码的优化</p>
+</li>
+</ul>
+<p>通过上面的方法，我们已经可以使用类方法来得到这个单例，但很多时候，项目的工程量很大，还有可能会很多开发者同时参与一个项目的开发，为了安全与管理代码的方便，也为了给不是这个单例的创作者但会用到这个单例的开发人员一些提示，我们通常会重写一些方法：</p>
+<p>首先我们自己实现一个alloc方法：</p>
+<p>+(instancetype)myAlloc{<br>return [super allocWithZone:nil];<br>}<br>将我们的单例实现方法略作修改：</p>
+<p>+(ZYHPayManager <em>)sharedMamager{<br>static ZYHPayManager </em> manager;<br>if (manager==nil) {<br>manager=[[ZYHPayManager myAlloc]init];<br>}<br>return manager;<br>}<br>将一些视图实例化对象的方法重写：</p>
+<p>+(instancetype)alloc{<br>NSAssert(0, @”这是一个单例对象，请使用+(ZYHPayManager <em>)sharedMamager方法”);<br>return nil;<br>}<br>+(instancetype)allocWithZone:(struct _NSZone </em>)zone{<br>return [self alloc];<br>}<br>-(id)copy{<br>NSLog(@”这是一个单例对象，copy将不起任何作用”);<br>return self;<br>}<br>+(instancetype)new{<br>return  [self alloc];<br>}<br>注意：这里的alloc使用了断言，让任何视图通过alloc创建对象的程序段断在此处，给程序员提示。copy方法这里只是简单的返回了原对象，并未做任何处理，打印信息给程序员提示。</p>
+<p></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2015/10/12/单例模式解读/">
+    <time datetime="2015-10-12T06:23:27.000Z" class="entry-date">
+        2015-10-12
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2015/12/12/iosd多线程－－死锁/" rel="prev"><span class="meta-nav">←</span> iosd多线程－－死锁</a></span>
+    
+    
+        <span class="nav-next"><a href="/2015/10/01/菜鸟成神宝典/" rel="next">菜鸟成神宝典 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/12/ios视频直播开发/">ios视频直播开发</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/25/ios毛玻璃的实现/">ios毛玻璃的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/25/音频直播的难点总结/">音频直播的难点总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/12/iosd多线程－－死锁/">iosd多线程－－死锁</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/12/单例模式解读/">单例模式解读</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2016 风
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

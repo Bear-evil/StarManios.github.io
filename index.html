@@ -81,7 +81,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/12/ios视频直播开发/" data-id="cipc7epn8000285s6f4p5tr8p" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/12/ios视频直播开发/" data-id="cipc7h8c300028ws6soqnil3q" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -141,7 +141,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/ios毛玻璃的实现/" data-id="cipc7epn0000085s63fki516s" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/ios毛玻璃的实现/" data-id="cipc7h8c100018ws6lcsohop2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -188,7 +188,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/音频直播的难点总结/" data-id="cipc7epne000585s6bnmroti1" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/音频直播的难点总结/" data-id="cipc7h8cd00068ws6syskedcp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -231,7 +231,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/12/12/iosd多线程－－死锁/" data-id="cipc7epnw000785s6g4o4fn1g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/12/12/iosd多线程－－死锁/" data-id="cipc7h8ci00078ws6j3400i9r" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -318,6 +318,67 @@
 
 
   
+    <article id="post-单例模式解读" class="post-单例模式解读 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2015/10/12/单例模式解读/">单例模式解读</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/10/12/单例模式解读/" data-id="cipc7h8cj00088ws62sylgya3" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><span><br>IOS 中单例设计模式的解读与用法<br>一、单例的作用<br>二、单例的写法<br>方式1、不考虑线程<br>方式2、考虑线程安全<br>三、代码的优化<br>IOS 中单例设计模式的解读与用法</span></p>
+<p>一、单例的作用</p>
+<p>顾名思义，单例，即是在整个项目中，这个类的对象只能被初始化一次。它的这种特性，可以广泛应用于某些需要全局共享的资源中，比如管理类，引擎类，也可以通过单例来实现传值。UIApplication、NSUserDefaults等都是IOS中的系统单例。</p>
+<p>二、单例的写法</p>
+<p>单例的写法常用的有两种方式：</p>
+<p>方式1、不考虑线程</p>
+<p>static SingleCase *manager = nil;  </p>
+<ul>
+<li><p>(SingleCase *)defaultManager {<br>if (!manager){<br>SingleCase = [[self alloc] init];<br>return manager;<br>}<br>}<br>方式2、考虑线程安全</p>
+</li>
+<li><p>(SingleCase <em>)sharedManager<br>{<br>static SingleCase </em>ManagerInstance = nil;<br>static dispatch_once_t predicate;<br>dispatch_once(&amp;predicate, ^{<br>ManagerInstance = [[self alloc] init];<br>});<br>return ManagerInstance;<br>}<br>三、代码的优化</p>
+</li>
+</ul>
+<p>通过上面的方法，我们已经可以使用类方法来得到这个单例，但很多时候，项目的工程量很大，还有可能会很多开发者同时参与一个项目的开发，为了安全与管理代码的方便，也为了给不是这个单例的创作者但会用到这个单例的开发人员一些提示，我们通常会重写一些方法：</p>
+<p>首先我们自己实现一个alloc方法：</p>
+<p>+(instancetype)myAlloc{<br>return [super allocWithZone:nil];<br>}<br>将我们的单例实现方法略作修改：</p>
+<p>+(ZYHPayManager <em>)sharedMamager{<br>static ZYHPayManager </em> manager;<br>if (manager==nil) {<br>manager=[[ZYHPayManager myAlloc]init];<br>}<br>return manager;<br>}<br>将一些视图实例化对象的方法重写：</p>
+<p>+(instancetype)alloc{<br>NSAssert(0, @”这是一个单例对象，请使用+(ZYHPayManager <em>)sharedMamager方法”);<br>return nil;<br>}<br>+(instancetype)allocWithZone:(struct _NSZone </em>)zone{<br>return [self alloc];<br>}<br>-(id)copy{<br>NSLog(@”这是一个单例对象，copy将不起任何作用”);<br>return self;<br>}<br>+(instancetype)new{<br>return  [self alloc];<br>}<br>注意：这里的alloc使用了断言，让任何视图通过alloc创建对象的程序段断在此处，给程序员提示。copy方法这里只是简单的返回了原对象，并未做任何处理，打印信息给程序员提示。</p>
+<p></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2015/10/12/单例模式解读/">
+    <time datetime="2015-10-12T06:23:27.000Z" class="entry-date">
+        2015-10-12
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-菜鸟成神宝典" class="post-菜鸟成神宝典 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -333,7 +394,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/10/01/菜鸟成神宝典/" data-id="cipc7epnx000885s6y75dqlxb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/10/01/菜鸟成神宝典/" data-id="cipc7h8cs00098ws63ltjzo0m" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -377,7 +438,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/09/24/如何做一个面霸/" data-id="cipc7epnd000485s62pz20hkc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/09/24/如何做一个面霸/" data-id="cipc7h8c700048ws67hmm20eo" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -423,7 +484,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/24/collectionView/" data-id="cipc7epnf000685s6dmrkqqg2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/24/collectionView/" data-id="cipc7h8bv00008ws63h8bausd" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -508,7 +569,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/12/runtime机制/" data-id="cipc7epn6000185s6mzs848kc" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/12/runtime机制/" data-id="cipc7h8c600038ws6rnadgbrm" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -566,7 +627,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/12/单例模式/" data-id="cipc7epnb000385s65b7tbnhu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/01/12/单例模式/" data-id="cipc7h8c900058ws698tgxwso" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -664,7 +725,7 @@
           </li>
         
           <li>
-            <a href="/2015/10/01/菜鸟成神宝典/">菜鸟成神宝典</a>
+            <a href="/2015/10/12/单例模式解读/">单例模式解读</a>
           </li>
         
       </ul>
