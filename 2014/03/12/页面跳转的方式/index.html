@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="美丽总是那么短暂" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>页面跳转的方式 | 风士魁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="常用的就两种 一种通过导航，一种直接跳
+第一种 直接跳转 思路大致就是new一个目的页面，然后设置下页面跳转动画 中间还可以做点目的页面的数据初始化:
+ValueInputView *valueView = [[ValueInputView alloc] initWithNibName:@”ValueInputView”bundle:[NSBundle mainBundle]];
+valueVie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页面跳转的方式">
+<meta property="og:url" content="http://yoursite.com/2014/03/12/页面跳转的方式/index.html">
+<meta property="og:site_name" content="风士魁">
+<meta property="og:description" content="常用的就两种 一种通过导航，一种直接跳
+第一种 直接跳转 思路大致就是new一个目的页面，然后设置下页面跳转动画 中间还可以做点目的页面的数据初始化:
+ValueInputView *valueView = [[ValueInputView alloc] initWithNibName:@”ValueInputView”bundle:[NSBundle mainBundle]];
+valueVie">
+<meta property="og:updated_time" content="2016-06-12T06:29:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="页面跳转的方式">
+<meta name="twitter:description" content="常用的就两种 一种通过导航，一种直接跳
+第一种 直接跳转 思路大致就是new一个目的页面，然后设置下页面跳转动画 中间还可以做点目的页面的数据初始化:
+ValueInputView *valueView = [[ValueInputView alloc] initWithNibName:@”ValueInputView”bundle:[NSBundle mainBundle]];
+valueVie">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="风士魁" rel="home">风士魁</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">风雨泽－万物苏</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-页面跳转的方式" class="post-页面跳转的方式 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      页面跳转的方式
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2014/03/12/页面跳转的方式/" data-id="cipc7srb4000cbls6kg86cow2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><span><br>常用的就两种 一种通过导航，一种直接跳</span></p>
+<p>第一种 直接跳转 思路大致就是new一个目的页面，然后设置下页面跳转动画 中间还可以做点目的页面的数据初始化:</p>
+<p>ValueInputView *valueView = [[ValueInputView alloc] initWithNibName:@”ValueInputView”bundle:[NSBundle mainBundle]];</p>
+<p>valueView.delegate = self;</p>
+<p>[valueView setModalTransitionStyle:UIModalTransitionStyleCoverVertical];</p>
+<p>[self presentModalViewController:valueView animated:YES];</p>
+<p>//返回 </p>
+<p>[self dismissModalViewControllerAnimated:YES];</p>
+<p>第二:</p>
+<p>利用UINavigationController，调用pushViewController，进行跳转；这种采用压栈和出栈的方式，进行Controller的管理。调用popViewControllerAnimated方法可以返回</p>
+<p>PickImageViewController *ickImageViewController = [[PickImageViewController alloc] init]; </p>
+<p>[self.navigationController pushViewController: ickImageViewController animated:true]; </p>
+<p>四种setModalTransitionStyle风格</p>
+<p>UIModalTransitionStyleCoverVertical 从底部滑入<br>UIModalTransitionStyleFlipHorizontal,水平翻转进入<br>UIModalTransitionStyleCrossDissolve,交叉溶解<br>UIModalTransitionStylePartialCurl,翻页</p>
+<p>场景切换</p>
+<p>多个场景之间切换的样式(Style)总共有5个：<br>Modal(模态) – 过渡到另一个场景，以完成一项任务。任务完成后，将关闭该场景，并返回到原来的场景。<br>Push(压入) – 创建一个场景链，用户可在其中前后移动。用于导航视图控制器。<br>Replace(替换，仅适用于iPad) – 替换当前场景，用于一些iPad特有的视图控制器。<br>Popover(弹出框，仅适用于iPad) – 一个带箭头的弹出框。<br>Custome(自定义) – 通过编译在场景之间进行自定义过渡。</p>
+<p>过渡类型(Transition)是从一个场景切换到另一个场景时播放的动画。有4个选项：<br>Cover Vertical – 新场景从下向上移动，逐渐覆盖旧场景。<br>Flip Horizontal – 视图水平翻转，以显示背面的新场景。<br>Cross Dissolve – 旧场景淡出，新场景淡入。<br>Partial Curl – 旧场景像书页一样翻开，显示下面的新场景。</p>
+<p>在iPad应用程序中，还会多出一个Presentation属性，它决定了模态视图在屏幕上的显示方式。有4种显示样式：<br>Form Sheet(表单) – 将场景调整到比屏幕小(不管朝向)，并在当前场景后面显示原始场景，这几乎相当于在一个iPad窗口中显示。<br>Page Sheet(页面) – 调整场景大小，使其以纵向格式显示。<br>Full Screen(全屏) – 调整场景大小，使其覆盖整个屏幕。<br>Current Context(当前上下文) – 以原始场景的显示方式展示场景。</p>
+<p></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2014/03/12/页面跳转的方式/">
+    <time datetime="2014-03-11T17:26:58.000Z" class="entry-date">
+        2014-03-12
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2014/11/12/SDWebImage的使用/" rel="prev"><span class="meta-nav">←</span> SDWebImage的使用</a></span>
+    
+    
+        <span class="nav-next"><a href="/2014/03/12/页面传值的方式/" rel="next">页面传值的方式 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/12/ios视频直播开发/">ios视频直播开发</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/25/ios毛玻璃的实现/">ios毛玻璃的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/25/音频直播的难点总结/">音频直播的难点总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/12/iosd多线程－－死锁/">iosd多线程－－死锁</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/12/单例模式解读/">单例模式解读</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2016 风
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
