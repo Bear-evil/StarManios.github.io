@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="美丽总是那么短暂" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>runtime机制 | 风士魁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Runtime是一套底层的C语言API（包含强大的C语言数据类型和函数）OC代码都是基于Runtime实现的，即编写的OC代码最终都会转成Runtime的代码，例如：HCPerson *person = [HCPerson alloc] init];[person setAge:10]; //这句会转换成objc_msgSend(person,@selector(setAge:),20);Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="runtime机制">
+<meta property="og:url" content="http://yoursite.com/2015/06/12/runtime机制/index.html">
+<meta property="og:site_name" content="风士魁">
+<meta property="og:description" content="Runtime是一套底层的C语言API（包含强大的C语言数据类型和函数）OC代码都是基于Runtime实现的，即编写的OC代码最终都会转成Runtime的代码，例如：HCPerson *person = [HCPerson alloc] init];[person setAge:10]; //这句会转换成objc_msgSend(person,@selector(setAge:),20);Run">
+<meta property="og:updated_time" content="2016-06-12T06:06:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="runtime机制">
+<meta name="twitter:description" content="Runtime是一套底层的C语言API（包含强大的C语言数据类型和函数）OC代码都是基于Runtime实现的，即编写的OC代码最终都会转成Runtime的代码，例如：HCPerson *person = [HCPerson alloc] init];[person setAge:10]; //这句会转换成objc_msgSend(person,@selector(setAge:),20);Run">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="风士魁" rel="home">风士魁</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">风雨泽－万物苏</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-runtime机制" class="post-runtime机制 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      runtime机制
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/12/runtime机制/" data-id="cipc7059s00025fs6ztc7jx13" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><span></span></p>
+<p></p><h1><br></h1><br>Runtime是一套底层的C语言API（包含强大的C语言数据类型和函数）<br>OC代码都是基于Runtime实现的，即编写的OC代码最终都会转成Runtime的代码，例如：<br>HCPerson *person = [HCPerson alloc] init];<br>[person setAge:10]; //这句会转换成objc_msgSend(person,@selector(setAge:),20);<br>Runtime的作用<br>获取类的私有变量<p></p>
+<p>#import <objc runtime.h=""><br>// Ivar : 成员变量<br>unsigned int count = 0;<br>// 获得所有的成员变量<br>Ivar <em>ivars = class_copyIvarList([HCPerson class], &amp;count);<br>for (int i = 0; i&lt;count; i++) {<br>// 取得i位置的成员变量<br>Ivar ivar = ivars[i];<br>const char </em>name = ivar_getName(ivar);<br>const char *type = ivar_getTypeEncoding(ivar);<br>NSLog(@”%d %s %s”, i, name, type);</objc></p>
+<p>}<br>动态产生类，成员变量和方法<br>动态修改类，成员变量和方法<br>对换两个方法的实现（swizzle）</p>
+<p>例如：如果想要对iOS7以上和iOS7以下的图片进行适配，不同系统版本显示不同的图片，则可利用swizzle来实现<br>实现方法：<br>1.自定义UIImage的类imageWithName：方法，在该方法内进行系统版本号的判断，来显示不同的图片<br>2.将imageWithName:方法和系统的imageNamed:方法进行对换，这样，一旦调用系统的imageNamed:方法，便会执行自定义的imageWithName:方法，进行判断，显示不同的图片<br>/**</p>
+<ul>
+<li>只要分类被装载到内存中，就会调用1次<br>*/</li>
+</ul>
+<ul>
+<li><p>(void)load<br>{<br>//获取类方法<br>Method otherMehtod = class_getClassMethod(self, @selector(imageWithName:));<br>Method originMehtod = class_getClassMethod(self, @selector(imageNamed:));<br>// 交换2个方法的实现<br>method_exchangeImplementations(otherMehtod, originMehtod);<br>}</p>
+</li>
+<li><p>(UIImage <em>)imageWithName:(NSString </em>)name<br>{<br>BOOL iOS7 = [[UIDevice currentDevice].systemVersion floatValue] &gt;= 7.0;<br>UIImage <em>image = nil;<br>if (iOS7) {<br>NSString </em>newName = [name stringByAppendingString:@”_os7”];<br>image = [UIImage imageWithName:newName];<br>}</p>
+</li>
+</ul>
+<p>if (image == nil) {<br>image = [UIImage imageWithName:name];<br>}<br>return image;<br>}</p>
+<p>文／冲破茧缚（简书作者）<br>原文链接：<a href="http://www.jianshu.com/p/20a02d17d6fc" target="_blank" rel="external">http://www.jianshu.com/p/20a02d17d6fc</a><br>著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。<br></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2015/06/12/runtime机制/">
+    <time datetime="2015-06-12T05:45:08.000Z" class="entry-date">
+        2015-06-12
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2015/06/24/collectionView/" rel="prev"><span class="meta-nav">←</span> collectionView</a></span>
+    
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2016/06/12/ios视频直播开发/">ios视频直播开发</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/25/ios毛玻璃的实现/">ios毛玻璃的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2016/05/25/音频直播的难点总结/">音频直播的难点总结</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/01/菜鸟成神宝典/">菜鸟成神宝典</a>
+          </li>
+        
+          <li>
+            <a href="/2015/09/24/如何做一个面霸/">如何做一个面霸</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  
+    
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2016 风
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>

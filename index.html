@@ -66,7 +66,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-ios视频直播开发一" class="post-ios视频直播开发一 post type-post status-publish format-standard hentry">
+    <article id="post-ios视频直播开发" class="post-ios视频直播开发 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -74,14 +74,14 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2016/06/12/ios视频直播开发一/">ios视频直播开发一</a>
+      <a class="article-title" href="/2016/06/12/ios视频直播开发/">ios视频直播开发</a>
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/12/ios视频直播开发一/" data-id="cipc692ei0000zcs6pjjota3g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/12/ios视频直播开发/" data-id="cipc7059o00015fs6uot1yzeq" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -91,7 +91,7 @@
 <ol>
 <li>采集硬件（摄像头）视频图像</li>
 </ol>
-<p>这里简单说下 iOS 的摄像头采集。</p>
+<p>iOS 的摄像头采集。</p>
 <p>首先初始化AVCaptureSession，说到Session，有没有人想到AVAudioSession呢？</p>
 <p>// 初始化 AVCaptureSession<br>_session = [[AVCaptureSession alloc] init];<br>设置采集的 Video 和 Audio 格式，这两个是分开设置的，也就是说，你可以只采集视频。<br>/ 配置采集输入源（摄像头）<br>NSError <em>error = nil;<br>// 获得一个采集设备，例如前置/后置摄像头<br>AVCaptureDevice </em>videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];<br>// 用设备初始化一个采集的输入对象<br>AVCaptureDeviceInput *videoInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&amp;error];<br>if (error) {<br>NSLog(@”Error getting video input device: %@”, error.description);<br>}<br>if ([_session canAddInput:videoInput]) {<br>[_session addInput:videoInput]; // 添加到Session<br>}</p>
 <p>// 配置采集输出，即我们取得视频图像的接口<br>_videoQueue = dispatch_queue_create(“Video Capture Queue”, DISPATCH_QUEUE_SERIAL);<br>_videoOutput = [[AVCaptureVideoDataOutput alloc] init];<br>[_videoOutput setSampleBufferDelegate:self queue:_videoQueue];</p>
@@ -110,7 +110,7 @@
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2016/06/12/ios视频直播开发一/">
+    <a href="/2016/06/12/ios视频直播开发/">
     <time datetime="2016-06-12T05:45:08.000Z" class="entry-date">
         2016-06-12
     </time>
@@ -141,13 +141,18 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/ios毛玻璃的实现/" data-id="cipc692ep0001zcs6p98vi7df" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/ios毛玻璃的实现/" data-id="cipc7059i00005fs6t4te8wkp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        
+        <p><span>其实在iOS7.0(包括)之前还是有系统的类可以实现毛玻璃效果的, 就是 UIToolbar这个类,并且使用相当简单,几行代码就可以搞定.</span></p>
+<p>下面是代码实现:</p>
+<p>创建一个UIToolbar实例,设置它的frame或者也可以通过添加约束</p>
+<p>然后UIToolbar有一个属性:barStyle,设置对应的枚举值来呈现 毛玻璃的样式,最后再添加到需要进行毛玻璃效果的view上即可.<br>1 /<em><br>2      毛玻璃的样式(枚举)<br>3      UIBarStyleDefault          = 0,<br>4      UIBarStyleBlack            = 1,<br>5      UIBarStyleBlackOpaque      = 1, // Deprecated. Use UIBarStyleBlack<br>6      UIBarStyleBlackTranslucent = 2, // Deprecated. Use UIBarStyleBlack and set the translucent property to YES<br>7     </em>/<br>8     UIImageView <em>bgImgView = [[UIImageView alloc] initWithFrame:self.view.bounds];<br>9     bgImgView.image = [UIImage imageNamed:@”huoying4.jpg”];<br>10     [self.view addSubview:bgImgView];<br>11<br>12     UIToolbar </em>toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, bgImgView.frame.size.width*0.5, bgImgView.frame.size.height)];<br>13     toolbar.barStyle = UIBarStyleBlackTranslucent;<br>14     [bgImgView addSubview:toolbar];</p>
+<p></p>
+
       
     </div><!-- .entry-content -->
 
@@ -183,7 +188,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/音频直播的难点总结/" data-id="cipc692fe0005zcs68x1cbwtp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/音频直播的难点总结/" data-id="cipc705a500045fs6bphwzcwb" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -226,7 +231,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/10/01/菜鸟成神宝典/" data-id="cipc692fc0004zcs67lgxcuxl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/10/01/菜鸟成神宝典/" data-id="cipc705ae00065fs6g2iogi3d" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -270,7 +275,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/09/24/如何做一个面霸/" data-id="cipc692fa0003zcs6xe9v70if" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/09/24/如何做一个面霸/" data-id="cipc705a300035fs6ff8kkzu5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -316,7 +321,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/24/collectionView/" data-id="cipc692es0002zcs6jauxvzy2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/24/collectionView/" data-id="cipc705aa00055fs6h8nss94w" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -386,6 +391,64 @@
 
 
   
+    <article id="post-runtime机制" class="post-runtime机制 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2015/06/12/runtime机制/">runtime机制</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/12/runtime机制/" data-id="cipc7059s00025fs6ztc7jx13" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><span></span></p>
+<p></p><h1><br></h1><br>Runtime是一套底层的C语言API（包含强大的C语言数据类型和函数）<br>OC代码都是基于Runtime实现的，即编写的OC代码最终都会转成Runtime的代码，例如：<br>HCPerson *person = [HCPerson alloc] init];<br>[person setAge:10]; //这句会转换成objc_msgSend(person,@selector(setAge:),20);<br>Runtime的作用<br>获取类的私有变量<p></p>
+<p>#import <objc runtime.h=""><br>// Ivar : 成员变量<br>unsigned int count = 0;<br>// 获得所有的成员变量<br>Ivar <em>ivars = class_copyIvarList([HCPerson class], &amp;count);<br>for (int i = 0; i&lt;count; i++) {<br>// 取得i位置的成员变量<br>Ivar ivar = ivars[i];<br>const char </em>name = ivar_getName(ivar);<br>const char *type = ivar_getTypeEncoding(ivar);<br>NSLog(@”%d %s %s”, i, name, type);</objc></p>
+<p>}<br>动态产生类，成员变量和方法<br>动态修改类，成员变量和方法<br>对换两个方法的实现（swizzle）</p>
+<p>例如：如果想要对iOS7以上和iOS7以下的图片进行适配，不同系统版本显示不同的图片，则可利用swizzle来实现<br>实现方法：<br>1.自定义UIImage的类imageWithName：方法，在该方法内进行系统版本号的判断，来显示不同的图片<br>2.将imageWithName:方法和系统的imageNamed:方法进行对换，这样，一旦调用系统的imageNamed:方法，便会执行自定义的imageWithName:方法，进行判断，显示不同的图片<br>/**</p>
+<ul>
+<li>只要分类被装载到内存中，就会调用1次<br>*/</li>
+</ul>
+<ul>
+<li><p>(void)load<br>{<br>//获取类方法<br>Method otherMehtod = class_getClassMethod(self, @selector(imageWithName:));<br>Method originMehtod = class_getClassMethod(self, @selector(imageNamed:));<br>// 交换2个方法的实现<br>method_exchangeImplementations(otherMehtod, originMehtod);<br>}</p>
+</li>
+<li><p>(UIImage <em>)imageWithName:(NSString </em>)name<br>{<br>BOOL iOS7 = [[UIDevice currentDevice].systemVersion floatValue] &gt;= 7.0;<br>UIImage <em>image = nil;<br>if (iOS7) {<br>NSString </em>newName = [name stringByAppendingString:@”_os7”];<br>image = [UIImage imageWithName:newName];<br>}</p>
+</li>
+</ul>
+<p>if (image == nil) {<br>image = [UIImage imageWithName:name];<br>}<br>return image;<br>}</p>
+<p>文／冲破茧缚（简书作者）<br>原文链接：<a href="http://www.jianshu.com/p/20a02d17d6fc" target="_blank" rel="external">http://www.jianshu.com/p/20a02d17d6fc</a><br>著作权归作者所有，转载请联系作者获得授权，并标注“简书作者”。<br></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2015/06/12/runtime机制/">
+    <time datetime="2015-06-12T05:45:08.000Z" class="entry-date">
+        2015-06-12
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
   
 
 </div></div>
@@ -409,7 +472,7 @@
       <ul>
         
           <li>
-            <a href="/2016/06/12/ios视频直播开发一/">ios视频直播开发一</a>
+            <a href="/2016/06/12/ios视频直播开发/">ios视频直播开发</a>
           </li>
         
           <li>
