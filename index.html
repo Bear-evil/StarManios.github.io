@@ -66,6 +66,66 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-ios视频直播开发一" class="post-ios视频直播开发一 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2016/06/12/ios视频直播开发一/">ios视频直播开发一</a>
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/06/12/ios视频直播开发一/" data-id="cipc692ei0000zcs6pjjota3g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><span></span></p>
+<ol>
+<li>采集硬件（摄像头）视频图像</li>
+</ol>
+<p>这里简单说下 iOS 的摄像头采集。</p>
+<p>首先初始化AVCaptureSession，说到Session，有没有人想到AVAudioSession呢？</p>
+<p>// 初始化 AVCaptureSession<br>_session = [[AVCaptureSession alloc] init];<br>设置采集的 Video 和 Audio 格式，这两个是分开设置的，也就是说，你可以只采集视频。<br>/ 配置采集输入源（摄像头）<br>NSError <em>error = nil;<br>// 获得一个采集设备，例如前置/后置摄像头<br>AVCaptureDevice </em>videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];<br>// 用设备初始化一个采集的输入对象<br>AVCaptureDeviceInput *videoInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&amp;error];<br>if (error) {<br>NSLog(@”Error getting video input device: %@”, error.description);<br>}<br>if ([_session canAddInput:videoInput]) {<br>[_session addInput:videoInput]; // 添加到Session<br>}</p>
+<p>// 配置采集输出，即我们取得视频图像的接口<br>_videoQueue = dispatch_queue_create(“Video Capture Queue”, DISPATCH_QUEUE_SERIAL);<br>_videoOutput = [[AVCaptureVideoDataOutput alloc] init];<br>[_videoOutput setSampleBufferDelegate:self queue:_videoQueue];</p>
+<p>// 配置输出视频图像格式<br>NSDictionary <em>captureSettings = @{(NSString</em>)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)};</p>
+<p>_videoOutput.videoSettings = captureSettings;<br>_videoOutput.alwaysDiscardsLateVideoFrames = YES;<br>if ([_session canAddOutput:_videoOutput]) {<br>[_session addOutput:_videoOutput];  // 添加到Session<br>}</p>
+<p>// 保存Connection，用于在SampleBufferDelegate中判断数据来源（是Video/Audio？）<br>_videoConnection = [_videoOutput connectionWithMediaType:AVMediaTypeVideo];<br>实现 AVCaptureOutputDelegate：</p>
+<ul>
+<li>(void) captureOutput:(AVCaptureOutput <em>)captureOutput<br>didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer<br>fromConnection:(AVCaptureConnection </em>)connection<br>{<br>// 这里的sampleBuffer就是采集到的数据了，但它是Video还是Audio的数据，得根据connection来判断<br>if (connection == _videoConnection) {  // Video<br>/<em><br>// 取得当前视频尺寸信息<br>CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);<br>int width = CVPixelBufferGetWidth(pixelBuffer);<br>int height = CVPixelBufferGetHeight(pixelBuffer);<br>NSLog(@”video width: %d  height: %d”, width, height);
+</em>/<br>NSLog(@”在这里获得video sampleBuffer，做进一步处理（编码H.264）”);<br>} else if (connection == _audioConnection) {  // Audio<br>NSLog(@”这里获得audio sampleBuffer，做进一步处理（编码AAC）”);<br>}<br>}<br>关于实时编码H.264和AAC Buffer，这里又是两个技术点，之后再讲吧。</li>
+</ul>
+<p>配置完成，现在启动 Session：<br>// 启动 Session<br>[_session startRunning];<br>1.1 附加任务：将当前硬件采集视频图像显示到屏幕</p>
+<p>很简单，发送端直接使用自家的AVCaptureVideoPreviewLayer显示，so easy<br>_previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:_session];<br>_previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill; // 设置预览时的视频缩放方式<br>[[_previewLayer connection] setVideoOrientation:AVCaptureVideoOrientationPortrait]; // 设置视频的朝向</p>
+<p>_previewLayer.frame = self.view.layer.bounds;<br>[self.view.layer addSublayer:_previewLayer];<br></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2016/06/12/ios视频直播开发一/">
+    <time datetime="2016-06-12T05:45:08.000Z" class="entry-date">
+        2016-06-12
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-ios毛玻璃的实现" class="post-ios毛玻璃的实现 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -81,7 +141,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/ios毛玻璃的实现/" data-id="ciomptoq00004xns6u0cry0aw" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/ios毛玻璃的实现/" data-id="cipc692ep0001zcs6p98vi7df" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -123,7 +183,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/音频直播的难点总结/" data-id="ciomptopx0003xns6u2w4b145" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2016/05/25/音频直播的难点总结/" data-id="cipc692fe0005zcs68x1cbwtp" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -166,7 +226,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/10/01/菜鸟成神宝典/" data-id="ciomptoph0001xns6m36al17l" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/10/01/菜鸟成神宝典/" data-id="cipc692fc0004zcs67lgxcuxl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -210,7 +270,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/09/24/如何做一个面霸/" data-id="ciomptopk0002xns6cxhfu943" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/09/24/如何做一个面霸/" data-id="cipc692fa0003zcs6xe9v70if" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -256,7 +316,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/24/collectionView/" data-id="ciomptopb0000xns6av8gmeot" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://yoursite.com/2015/06/24/collectionView/" data-id="cipc692es0002zcs6jauxvzy2" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -349,6 +409,10 @@
       <ul>
         
           <li>
+            <a href="/2016/06/12/ios视频直播开发一/">ios视频直播开发一</a>
+          </li>
+        
+          <li>
             <a href="/2016/05/25/ios毛玻璃的实现/">ios毛玻璃的实现</a>
           </li>
         
@@ -362,10 +426,6 @@
         
           <li>
             <a href="/2015/09/24/如何做一个面霸/">如何做一个面霸</a>
-          </li>
-        
-          <li>
-            <a href="/2015/06/24/collectionView/">collectionView</a>
           </li>
         
       </ul>
